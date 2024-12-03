@@ -24,11 +24,16 @@ const useCalculator = () => {
     setExpresion(expresion + str);
   };
 
+  const softReset = () => {
+    setExpresion('0');
+  };
+
   return {
     // props
     expresion,
     // methods
     buildExpresion,
+    softReset,
   };
 };
 

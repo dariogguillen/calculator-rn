@@ -5,7 +5,7 @@ import CalculatorButton, {ButtonProps} from '../components/CalculatorButton';
 import useCalculator from '../hooks';
 
 const CalculatorScreen = () => {
-  const {expresion, buildExpresion} = useCalculator();
+  const {expresion, buildExpresion, softReset} = useCalculator();
   return (
     <View style={globalStyles.calculatorContainer}>
       <View style={{paddingHorizontal: 30, paddingBottom: 20}}>
@@ -30,9 +30,10 @@ const CalculatorScreen = () => {
 type RowButton = ButtonProps[];
 const buttons = (
   buildExpresion: (s: string) => void,
+  softReset: () => void,
 ): RowButton[] => [
   [
-    {onPress: () => console.log('C'), label: 'C', color: colors.lightGray},
+    {onPress: () => softReset(), label: 'C', color: colors.lightGray},
     {onPress: () => console.log('+/-'), label: '+/-', color: colors.lightGray},
     {onPress: () => console.log('del'), label: 'del', color: colors.lightGray},
     {onPress: () => console.log('/'), label: '/', color: colors.orange},
