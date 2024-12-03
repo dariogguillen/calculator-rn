@@ -16,8 +16,14 @@ const useCalculator = () => {
       if (expresion.length === 1) {
         return setExpresion(str);
       }
+      if (expresion === '-0') {
+        if (str === '0') {
+          return;
+        }
+        return setExpresion('-' + str);
+      }
       // Remove zero if the first is not a decimal point
-      if (expresion[1] !== '.') {
+      if (expresion[1] !== '.' && expresion[0] !== '-') {
         return setExpresion(expresion.slice(1));
       }
     }
@@ -29,7 +35,10 @@ const useCalculator = () => {
   };
 
   const deleteLast = () => {
-    if (expresion.length === 1) {
+    if (
+      expresion.length === 1 ||
+      (expresion.length === 2 && expresion.includes('-'))
+    ) {
       return setExpresion('0');
     }
     setExpresion(expresion.slice(0, -1));
