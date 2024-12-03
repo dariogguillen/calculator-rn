@@ -28,12 +28,20 @@ const useCalculator = () => {
     setExpresion('0');
   };
 
+  const deleteLast = () => {
+    if (expresion.length === 1) {
+      return setExpresion('0');
+    }
+    setExpresion(expresion.slice(0, -1));
+  };
+
   return {
     // props
     expresion,
     // methods
     buildExpresion,
     softReset,
+    deleteLast,
   };
 };
 
