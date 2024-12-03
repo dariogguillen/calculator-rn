@@ -35,6 +35,13 @@ const useCalculator = () => {
     setExpresion(expresion.slice(0, -1));
   };
 
+  const toggleSign = () => {
+    if (expresion.includes('-')) {
+      return setExpresion(expresion.replace('-', ''));
+    }
+    setExpresion('-' + expresion);
+  };
+
   return {
     // props
     expresion,
@@ -42,6 +49,7 @@ const useCalculator = () => {
     buildExpresion,
     softReset,
     deleteLast,
+    toggleSign,
   };
 };
 

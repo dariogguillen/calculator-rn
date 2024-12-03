@@ -5,7 +5,8 @@ import CalculatorButton, {ButtonProps} from '../components/CalculatorButton';
 import useCalculator from '../hooks';
 
 const CalculatorScreen = () => {
-  const {expresion, buildExpresion, softReset, deleteLast} = useCalculator();
+  const {expresion, buildExpresion, softReset, deleteLast, toggleSign} =
+    useCalculator();
   return (
     <View style={globalStyles.calculatorContainer}>
       <View style={{paddingHorizontal: 30, paddingBottom: 20}}>
@@ -17,7 +18,7 @@ const CalculatorScreen = () => {
         </Text>
         <Text style={globalStyles.subResult}>15</Text>
       </View>
-      {buttons(buildExpresion, softReset, deleteLast).map(row => (
+      {buttons(buildExpresion, softReset, deleteLast, toggleSign).map(row => (
         <View key={row[0].label} style={globalStyles.row}>
           {row.map(button => (
             <CalculatorButton key={button.label} {...button} />
@@ -32,10 +33,11 @@ const buttons = (
   buildExpresion: (s: string) => void,
   softReset: () => void,
   deleteLast: () => void,
+  toggleSign: () => void,
 ): RowButton[] => [
   [
     {onPress: () => softReset(), label: 'C', color: colors.lightGray},
-    {onPress: () => console.log('+/-'), label: '+/-', color: colors.lightGray},
+    {onPress: () => toggleSign(), label: '+/-', color: colors.lightGray},
     {onPress: () => deleteLast(), label: 'del', color: colors.lightGray},
     {onPress: () => console.log('/'), label: '/', color: colors.orange},
   ],
