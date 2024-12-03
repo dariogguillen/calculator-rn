@@ -21,14 +21,14 @@ const globalStyles = StyleSheet.create({
   },
   mainResult: {
     color: colors.textPrimary,
-    fontSize: 70,
+    fontSize: 30,
     textAlign: 'right',
     marginBottom: 10,
     fontWeight: '300',
   },
   subResult: {
     color: colors.textSecondary,
-    fontSize: 40,
+    fontSize: 25,
     textAlign: 'right',
     fontWeight: '300',
   },

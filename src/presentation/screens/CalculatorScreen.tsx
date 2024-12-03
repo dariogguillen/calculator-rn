@@ -20,15 +20,10 @@ const CalculatorScreen = () => {
   return (
     <View style={globalStyles.calculatorContainer}>
       <View style={{paddingHorizontal: 30, paddingBottom: 20}}>
-        <Text adjustsFontSizeToFit style={globalStyles.subResult}>
+        <Text adjustsFontSizeToFit style={globalStyles.mainResult}>
           {expresion}
         </Text>
-        <Text
-          adjustsFontSizeToFit
-          numberOfLines={1}
-          style={globalStyles.mainResult}>
-          {result}
-        </Text>
+        <Text style={globalStyles.subResult}>{result || ''}</Text>
       </View>
       {buttons(
         buildExpresion,
@@ -62,7 +57,12 @@ const buttons = (
 ): RowButton[] => [
   [
     {onPress: softReset, label: 'C', color: colors.lightGray},
-    {onPress: toggleSign, label: '+/-', color: colors.lightGray},
+    {
+      onPress: toggleSign,
+      label: '+/-',
+      color: colors.lightGray,
+      disabled: true, // TODO: fix toggle sign
+    },
     {onPress: deleteLast, label: 'del', color: colors.lightGray},
     {onPress: div, label: '/', color: colors.orange},
   ],
