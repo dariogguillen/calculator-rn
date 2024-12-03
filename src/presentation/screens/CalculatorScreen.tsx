@@ -9,9 +9,10 @@ const CalculatorScreen = () => {
     expresion,
     result,
     buildExpresion,
-    softReset,
+    reset,
     deleteLast,
     toggleSign,
+    calculate,
     add,
     sub,
     mul,
@@ -27,9 +28,10 @@ const CalculatorScreen = () => {
       </View>
       {buttons(
         buildExpresion,
-        softReset,
+        reset,
         deleteLast,
         toggleSign,
+        calculate,
         add,
         sub,
         mul,
@@ -47,16 +49,17 @@ const CalculatorScreen = () => {
 type RowButton = ButtonProps[];
 const buttons = (
   buildExpresion: (s: string) => void,
-  softReset: () => void,
+  reset: () => void,
   deleteLast: () => void,
   toggleSign: () => void,
+  calculate: () => void,
   add: () => void,
   sub: () => void,
   mul: () => void,
   div: () => void,
 ): RowButton[] => [
   [
-    {onPress: softReset, label: 'C', color: colors.lightGray},
+    {onPress: reset, label: 'C', color: colors.lightGray},
     {
       onPress: toggleSign,
       label: '+/-',
@@ -87,7 +90,7 @@ const buttons = (
   [
     {onPress: () => buildExpresion('0'), label: '0', doubleSize: true},
     {onPress: () => buildExpresion('.'), label: '.'},
-    {onPress: () => console.log('='), label: '=', color: colors.orange},
+    {onPress: calculate, label: '=', color: colors.orange},
   ],
 ];
 

@@ -1,18 +1,72 @@
-import {useRef, useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 
 enum Operator {
   sum = '+',
   sub = '-',
   mul = '*',
   div = '/',
+  unknown = '?',
 }
+type CalcRes = [number, string, Operator];
+
+const applyOperation = (
+  op: Operator,
+  num1: number,
+  num2: string,
+  newOp?: Operator,
+): CalcRes => {
+  switch (op) {
+    case Operator.sum:
+      return [num1 + Number(num2), '', newOp || op];
+    case Operator.sub:
+      return [num1 - Number(num2), '', newOp || op];
+    case Operator.mul:
+      return [num1 * Number(num2), '', newOp || op];
+    case Operator.div:
+      return [num1 / Number(num2), '', newOp || op];
+
+    case Operator.unknown:
+    default:
+      throw new Error(`Operation ${op} not supported`);
+  }
+};
 
 const useCalculator = () => {
   const [expresion, setExpresion] = useState('0');
 
-  const [result, setResult] = useState('');
+  const [result, setResult] = useState(0);
 
   const lastOperation = useRef<Operator>();
+
+  useEffect(() => {
+    if (
+      !lastOperation.current ||
+      Object.values(Operator).includes(expresion.slice(-1) as Operator)
+    ) {
+      setResult(0);
+    } else {
+      const [res] = expresion.split('').reduce(
+        (prev: CalcRes, curr, index, arr): CalcRes => {
+          if (Object.values(Operator).includes(curr as Operator)) {
+            if (prev[2] === Operator.unknown) {
+              return [Number(prev[1]), '', curr as Operator];
+            }
+            return applyOperation(prev[2], prev[0], prev[1], curr as Operator);
+          } else {
+            if (
+              index === arr.length - 1 &&
+              lastOperation.current !== Operator.unknown
+            ) {
+              return applyOperation(prev[2], prev[0], prev[1] + curr);
+            }
+            return [prev[0], prev[1] + curr, prev[2]];
+          }
+        },
+        [0, '', Operator.unknown],
+      );
+      setResult(res || 0);
+    }
+  }, [expresion, result, lastOperation]);
 
   const buildExpresion = (str: string | Operator) => {
     if (expresion.includes('.') && str === '.') {
@@ -41,9 +95,16 @@ const useCalculator = () => {
     setExpresion(expresion + str);
   };
 
-  const softReset = () => {
+  const reset = () => {
     setExpresion('0');
-    setResult('');
+    setResult(0);
+    lastOperation.current = Operator.unknown;
+  };
+
+  const calculate = () => {
+    setExpresion(`${result}`);
+    setResult(0);
+    lastOperation.current = Operator.unknown;
   };
 
   const deleteLast = () => {
@@ -103,9 +164,10 @@ const useCalculator = () => {
     result,
     // methods
     buildExpresion,
-    softReset,
+    reset,
     deleteLast,
     toggleSign,
+    calculate,
     add,
     sub,
     mul,
