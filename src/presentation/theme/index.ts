@@ -1,1 +1,1 @@
-export {default} from './app-theme';
+export {default, colors} from './app-theme';

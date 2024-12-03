@@ -32,6 +32,27 @@ const globalStyles = StyleSheet.create({
     textAlign: 'right',
     fontWeight: '300',
   },
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginBottom: 10,
+    paddingHorizontal: 10,
+  },
+  button: {
+    height: 80,
+    width: 80,
+    borderRadius: 100,
+    justifyContent: 'center',
+    marginHorizontal: 5,
+    backgroundColor: colors.darkGray,
+  },
+  buttonText: {
+    textAlign: 'center',
+    padding: 10,
+    fontSize: 30,
+    color: 'white',
+    fontWeight: '300',
+  },
 });
 
 export default globalStyles;
