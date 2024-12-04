@@ -67,13 +67,13 @@ const buttons = (
       disabled: true, // TODO: fix toggle sign
     },
     {onPress: deleteLast, label: 'del', color: colors.lightGray},
-    {onPress: div, label: '/', color: colors.orange},
+    {onPress: div, label: '÷', color: colors.orange},
   ],
   [
     {onPress: () => buildExpresion('7'), label: '7'},
     {onPress: () => buildExpresion('8'), label: '8'},
     {onPress: () => buildExpresion('9'), label: '9'},
-    {onPress: mul, label: 'X', color: colors.orange},
+    {onPress: mul, label: 'x', color: colors.orange},
   ],
   [
     {onPress: () => buildExpresion('4'), label: '4'},

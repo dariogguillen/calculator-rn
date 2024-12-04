@@ -4,7 +4,7 @@ enum Operator {
   sum = '+',
   sub = '-',
   mul = '*',
-  div = '/',
+  div = '÷',
   unknown = '?',
 }
 type CalcRes = [number, string, Operator];
